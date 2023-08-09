@@ -55,6 +55,7 @@ $MainSource = function () use ($title) {
     return <<<HTML
     <main>
         <div>~{$path}</div>
+        <div style="overflow-x: scroll;">
         <table>
         <thead>
             <th>file&dir</th>
@@ -66,6 +67,7 @@ $MainSource = function () use ($title) {
             {$content}
         </tbody>
         </table>
+        </div>
     </main>
     HTML;
 };

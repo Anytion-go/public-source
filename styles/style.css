@@ -14,9 +14,12 @@ main {
 }
 table {
   width: 100%;
-  max-width: 900px;
+  /* max-width: 900px; */
 }
 
 th {
   text-align: left;
+}
+td {
+  overflow-x: hidden;
 }
