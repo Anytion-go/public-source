@@ -23,6 +23,13 @@ $MainSource = function () use ($title) {
         if ($file_list[$i][0] === '.') continue;
         $file_name = is_dir('.' . $path . $file_list[$i]) ?  $file_list[$i] . '/' : $file_list[$i];
         $file_size = filesize('.' . $path . $file_list[$i]);
+        if ($file_size >= 1000000) {
+            $file_size = number_format($file_size * (10 ** -6), 2) . 'MB';
+        } elseif ($file_size >= 1000) {
+            $file_size = number_format($file_size * (10 ** -3), 2) . 'KB';
+        } else {
+            $file_size .= "B";
+        }
         $file_type = is_dir('.' . $path . $file_list[$i]) ? "directory" : "file";
         $file_access = fileatime('.' . $path . $file_list[$i]);
         $file_access = date("H:m__Y-M-d", $file_access);
