@@ -7,7 +7,7 @@ $MainSource = function () use ($title) {
     if (is_dir('.' . $path))
         $file_list = scandir('.' . $path);
     else {
-        header('Location: ./');
+        header('Location: ../');
         die;
     }
 
