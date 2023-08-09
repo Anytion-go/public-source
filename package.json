@@ -1,0 +1,33 @@
+{
+    "name": "ltp",
+    "version": "1.0.0",
+    "description": "template for php",
+    "author": "",
+    "license": "ISC",
+    "package": {
+        "nexit": {
+            "version": "main",
+            "url": "https://github.com/Arikato111/NEXIT/tree/module"
+        },
+        "use-import": {
+            "version": "main",
+            "url": "https://github.com/Arikato111/use-import/tree/master"
+        },
+        "wisit-express": {
+            "version": "main",
+            "url": "https://github.com/Arikato111/wisit-express/tree/Release1.0"
+        },
+        "wisios": {
+            "version": "main",
+            "url": "https://github.com/Arikato111/wisios/tree/master"
+        },
+        "wisit-router": {
+            "version": "type",
+            "url": "https://github.com/Arikato111/wisit-router/tree/type"
+        },
+        "dotenv": {
+            "version": "main",
+            "url": "https://github.com/Arikato111/php-dotenv/tree/main"
+        }
+    }
+}

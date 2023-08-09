@@ -1,0 +1,22 @@
+body {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+main {
+  padding: 10px;
+}
+
+.link-list {
+  /* margin:0s 3px; */
+  display: inline-block;
+}
+table {
+  width: 100%;
+  max-width: 900px;
+}
+
+th {
+  text-align: left;
+}
