@@ -2,10 +2,10 @@
 $title = import('nexit/title');
 
 $Home = function () use ($title) {
-  $title('Nexit app'); // use title function to change title
+  $title('source files'); // use title function to change title
   return <<<HTML
     <div>
-      <h1>sorce files</h1>
+      <h1>public source files</h1>
       <dir>
         this is website to keep and publish files maybe from any open source project. 
       </dir>

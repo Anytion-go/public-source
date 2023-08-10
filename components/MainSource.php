@@ -54,7 +54,7 @@ $MainSource = function () use ($title) {
     $title($path);
     return <<<HTML
     <main>
-        <div>~{$path}</div>
+        <div><b>~{$path}</b></div>
         <div style="overflow-x: scroll;">
         <table>
         <thead>
