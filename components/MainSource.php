@@ -2,6 +2,10 @@
 $title = import('nexit/title');
 $MainSource = function () use ($title) {
     $path = getPath();
+    while(strpos($path, '..') !== false) {
+        $path = str_replace('..', '.', $path);
+        $path = str_replace('/./', '/', $path);
+    }
 
     // $file_list = glob('.' . $path . '*');
     if (is_dir('.' . $path))
