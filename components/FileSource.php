@@ -2,6 +2,12 @@
 $export = function ($req, $res) {
     $path = getPath();
     $path = '.' . $path;
+    while (strpos($path, '..') !== false) {
+        $path = str_replace('..', '.', $path);
+        $path = str_replace('/./', '/', $path);
+    }
+
+
     if (!file_exists($path) || !is_file($path)) {
         $res->status(404);
         $res->send('404 not found');
