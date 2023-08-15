@@ -6,20 +6,27 @@ $useApi = import('nexit/useApi');
 $Navbar = import('./components/Navbar');
 
 $export = function ($Component) use ($useApi, $Navbar) {
-  //$useApi is use for api. If you dont use it, you can delete it.
-  if(getParams(0) == 'admin') {
-    if(!isset($_SESSION['admin'])) {
-      $Component = import('./pages/_error');
-    }
-  }
-  $useApi('api', $Component);
+  $params_0 = getParams(0);
+  $params_last = getParams();
 
   $GLOBALS['title'] = 'title';
   $styles = showStyles();
   $content = $Component();
 
-  if (getParams(0) == 'source') {
-    if (getParams() != '') {
+  if ($params_0 == 'admin') {
+    if (!isset($_SESSION['admin'])) {
+      $Component = import('./pages/_error');
+    } else {
+      if ($params_last == '') {
+        $content = import('./components/admin/AdminMainSource')();
+      } else {
+      }
+    }
+  }
+  $useApi('api', $Component);
+
+  if ($params_0 == 'source') {
+    if ($params_last != '') {
       $FileSource = import('./components/FileSource');
       $useApi('*', $FileSource);
       die;
@@ -27,7 +34,7 @@ $export = function ($Component) use ($useApi, $Navbar) {
       $content = import('./components/MainSource')();
     }
   }
-  
+
 
   return <<<HTML
     <!DOCTYPE html>

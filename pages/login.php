@@ -1,5 +1,9 @@
 <?php
 $export = function () {
+    if(isset($_GET['logout'])) {
+        session_unset();
+        header("Location: /login");die;
+    }
     if(
         isset($_POST['username']) && 
         isset($_POST['password']) && 
