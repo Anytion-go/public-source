@@ -23,3 +23,9 @@ th {
 td {
   overflow-x: hidden;
 }
+tr:hover {
+  background-color: #f2f2f2;
+}
+button {
+  cursor: pointer;
+}

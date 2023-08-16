@@ -1,15 +1,28 @@
 <?php
 $title = import('nexit/title');
 
+$DeleteFile = function ($path) {
+    $target = $_GET['target'] ?? "";
+    if (is_dir('.' . $path . $target)) {
+        rmdir('.' . $path . $target);
+    } else {
+        unlink('.' . $path . $target);
+    }
+    $default_path = getPath();
+    header("Location: $default_path");
+    die;
+};
+
 $UploadFile = function ($path) {
     if (isset($_POST['upload'])) {
         echo  $file_count = count($_FILES['file']['name']);
         for ($i = 0; $i < $file_count; $i++) {
             $_FILES['file']['name'][$i];
-            move_uploaded_file($_FILES['file']['tmp_name'][$i],'.' . $path . $_FILES['file']['name'][$i]);
+            move_uploaded_file($_FILES['file']['tmp_name'][$i], '.' . $path . $_FILES['file']['name'][$i]);
             // print_r('<pre>' . json_encode($_FILES['file']['name'][$i], JSON_PRETTY_PRINT) . '</pre>');
         }
-        header("Refresh:0");die;
+        header("Refresh:0");
+        die;
     }
     return <<<HTML
     <div>
@@ -21,7 +34,7 @@ $UploadFile = function ($path) {
     HTML;
 };
 
-$AdminMainSource = function () use ($title, $UploadFile) {
+$AdminMainSource = function () use ($title, $DeleteFile, $UploadFile) {
     $path = getPath();
     $path = explode('/', $path);
     $path[1] = 'source';
@@ -39,6 +52,8 @@ $AdminMainSource = function () use ($title, $UploadFile) {
         header('Location: ../');
         die;
     }
+
+    if (isset($_GET['delete'])) $DeleteFile($path);
 
     $content = <<<HTML
     <tr>
@@ -69,6 +84,12 @@ $AdminMainSource = function () use ($title, $UploadFile) {
         $content .= <<<HTML
         <tr>
             <td>
+                <a onclick="return confirm(`{$file_name}\nAre you sure to delete !?`)" href="?delete=true&target={$file_name}">
+                    <button style="border: 2px solid red;">delete</button>
+                </a>
+            </td>
+ 
+            <td>
                 <a class="link-list" href="{$file_list[$i]}">{$file_name}</a>
             </td>
             <td>
@@ -80,12 +101,7 @@ $AdminMainSource = function () use ($title, $UploadFile) {
             <td>
                 <span>{$file_type}</span>
             </td>   
-            <td>
-                <a onclick="return confirm(`Are you sure to delete!?`)" href="#">
-                    <button style="border: 2px solid red;">delete</button>
-                </a>
-            </td>
- 
+
         </tr>
         HTML;
     }
@@ -100,11 +116,11 @@ $AdminMainSource = function () use ($title, $UploadFile) {
         <div style="overflow-x: scroll;">
         <table>
         <thead>
+            <th>delete</th>
             <th>file&dir</th>
             <th>size</th>
             <th>create at</th>
             <th>type</th>
-            <th>delete</th>
         </thead>
         <tbody>
             {$content}
