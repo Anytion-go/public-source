@@ -1,0 +1,5 @@
+<?php
+
+$export = function () {
+
+};

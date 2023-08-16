@@ -1,14 +1,20 @@
 <?php
 $title = import('nexit/title');
 
-$UploadFile = function () {
-    if(isset($_POST['upload'])) {
-        print_r('<pre>'. json_encode($_FILES, JSON_PRETTY_PRINT) . '</pre>');
+$UploadFile = function ($path) {
+    if (isset($_POST['upload'])) {
+        echo  $file_count = count($_FILES['file']['name']);
+        for ($i = 0; $i < $file_count; $i++) {
+            $_FILES['file']['name'][$i];
+            move_uploaded_file($_FILES['file']['tmp_name'][$i],'.' . $path . $_FILES['file']['name'][$i]);
+            // print_r('<pre>' . json_encode($_FILES['file']['name'][$i], JSON_PRETTY_PRINT) . '</pre>');
+        }
+        header("Refresh:0");die;
     }
     return <<<HTML
     <div>
         <form method="POST" enctype="multipart/form-data">
-            <input type="file" name="file[]" id="" multiple>
+            <input type="file" name="file[]" id="" multiple required>
             <button name="upload">upload</button>
         </form>
     </div>
@@ -21,7 +27,7 @@ $AdminMainSource = function () use ($title, $UploadFile) {
     $path[1] = 'source';
     $path = implode("/", $path);
 
-    while(strpos($path, '..') !== false) {
+    while (strpos($path, '..') !== false) {
         $path = str_replace('..', '.', $path);
         $path = str_replace('/./', '/', $path);
     }
@@ -54,6 +60,10 @@ $AdminMainSource = function () use ($title, $UploadFile) {
             $file_size .= "B";
         }
         $file_type = is_dir('.' . $path . $file_list[$i]) ? "directory" : "file";
+        if ($file_type == 'directory') {
+            $file_list[$i] .= '/';
+        }
+
         $file_access = fileatime('.' . $path . $file_list[$i]);
         $file_access = date("H:m__Y-M-d", $file_access);
         $content .= <<<HTML
@@ -79,11 +89,13 @@ $AdminMainSource = function () use ($title, $UploadFile) {
         </tr>
         HTML;
     }
-    $UploadFile_content = $UploadFile();
+    $UploadFile_content = $UploadFile($path);
     $title($path);
     return <<<HTML
     <main>
+        <hr>
         {$UploadFile_content}
+        <hr>
         <div><b>~{$path}</b></div>
         <div style="overflow-x: scroll;">
         <table>

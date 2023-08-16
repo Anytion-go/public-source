@@ -35,6 +35,9 @@ $MainSource = function () use ($title) {
             $file_size .= "B";
         }
         $file_type = is_dir('.' . $path . $file_list[$i]) ? "directory" : "file";
+        if($file_type == 'directory') {
+            $file_list[$i] .= '/';
+        }
         $file_access = fileatime('.' . $path . $file_list[$i]);
         $file_access = date("H:m__Y-M-d", $file_access);
         $content .= <<<HTML

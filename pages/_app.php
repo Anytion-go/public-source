@@ -17,9 +17,11 @@ $export = function ($Component) use ($useApi, $Navbar) {
     if (!isset($_SESSION['admin'])) {
       $Component = import('./pages/_error');
     } else {
-      if ($params_last == '') {
-        $content = import('./components/admin/AdminMainSource')();
+      if ($params_last != '') {
+        $AdminFileSource = import('./components/admin/AdminFileSource');
+        $useApi('*', $AdminFileSource);
       } else {
+        $content = import('./components/admin/AdminMainSource')();
       }
     }
   }
