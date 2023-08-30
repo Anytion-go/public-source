@@ -1,6 +1,7 @@
 <?php
 $export = function ($req, $res) {
     $path = getPath();
+    $path = urldecode($path);
     $path = '.' . $path;
     $path = explode('/', $path);
     $path[1] = 'source';

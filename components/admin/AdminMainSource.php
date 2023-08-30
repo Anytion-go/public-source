@@ -6,6 +6,7 @@ $UploadFile = import(__DIR__, './UploadFile.php');
 
 $AdminMainSource = function () use ($title, $CreateDir, $DeleteFile, $UploadFile) {
     $path = getPath();
+    $path = urldecode($path);
     $path = explode('/', $path);
     $path[1] = 'source';
     $path = implode("/", $path);

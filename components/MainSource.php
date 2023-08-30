@@ -2,6 +2,7 @@
 $title = import('nexit/title');
 $MainSource = function () use ($title) {
     $path = getPath();
+    $path = urldecode($path);
     while(strpos($path, '..') !== false) {
         $path = str_replace('..', '.', $path);
         $path = str_replace('/./', '/', $path);

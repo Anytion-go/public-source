@@ -1,6 +1,7 @@
 <?php
 $export = function ($req, $res) {
     $path = getPath();
+    $path = urldecode($path);
     $path = '.' . $path;
     while (strpos($path, '..') !== false) {
         $path = str_replace('..', '.', $path);
