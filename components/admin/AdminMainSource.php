@@ -1,40 +1,10 @@
 <?php
 $title = import('nexit/title');
+$CreateDir = import(__DIR__,'./CreateDir.php');
+$DeleteFile = import(__DIR__, './DeleteFile.php');
+$UploadFile = import(__DIR__, './UploadFile.php');
 
-$DeleteFile = function ($path) {
-    $target = $_GET['target'] ?? "";
-    if (is_dir('.' . $path . $target)) {
-        rmdir('.' . $path . $target);
-    } else {
-        unlink('.' . $path . $target);
-    }
-    $default_path = getPath();
-    header("Location: $default_path");
-    die;
-};
-
-$UploadFile = function ($path) {
-    if (isset($_POST['upload'])) {
-        echo  $file_count = count($_FILES['file']['name']);
-        for ($i = 0; $i < $file_count; $i++) {
-            $_FILES['file']['name'][$i];
-            move_uploaded_file($_FILES['file']['tmp_name'][$i], '.' . $path . $_FILES['file']['name'][$i]);
-            // print_r('<pre>' . json_encode($_FILES['file']['name'][$i], JSON_PRETTY_PRINT) . '</pre>');
-        }
-        header("Refresh:0");
-        die;
-    }
-    return <<<HTML
-    <div>
-        <form method="POST" enctype="multipart/form-data">
-            <input type="file" name="file[]" id="" multiple required>
-            <button name="upload">upload</button>
-        </form>
-    </div>
-    HTML;
-};
-
-$AdminMainSource = function () use ($title, $DeleteFile, $UploadFile) {
+$AdminMainSource = function () use ($title, $CreateDir, $DeleteFile, $UploadFile) {
     $path = getPath();
     $path = explode('/', $path);
     $path[1] = 'source';
@@ -45,7 +15,6 @@ $AdminMainSource = function () use ($title, $DeleteFile, $UploadFile) {
         $path = str_replace('/./', '/', $path);
     }
 
-    // $file_list = glob('.' . $path . '*');
     if (is_dir('.' . $path))
         $file_list = scandir('.' . $path);
     else {
@@ -105,10 +74,13 @@ $AdminMainSource = function () use ($title, $DeleteFile, $UploadFile) {
         </tr>
         HTML;
     }
+    $createDirElement = $CreateDir($path);
     $UploadFile_content = $UploadFile($path);
     $title($path);
     return <<<HTML
     <main>
+        <hr>
+        {$createDirElement}
         <hr>
         {$UploadFile_content}
         <hr>

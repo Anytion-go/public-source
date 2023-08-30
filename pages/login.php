@@ -10,7 +10,7 @@ $export = function () {
         !empty($_POST['username']) && 
         !empty($_POST['password'])
     ) {
-        if($_POST['username'] == $_ENV['USER'] && $_POST['password'] == $_ENV['PASS']) {
+        if($_POST['username'] == $_ENV['USER'] && sha1($_POST['password']) == $_ENV['PASS']) {
             $_SESSION['admin'] = true;
             header("Location: /admin/");
             die;
