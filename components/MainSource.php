@@ -64,7 +64,7 @@ $MainSource = function () use ($title) {
     <main>
         <h3><b>~{$path}</b></h3>
         <hr>
-        <div style="overflow-x: scroll;">
+        <div>
         <table>
         <!-- <thead>
             <th>file&dir</th>
