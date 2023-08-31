@@ -9,18 +9,13 @@ main {
 }
 
 .link-list {
-  /* margin:0s 3px; */
   display: inline-block;
 }
-table {
-  width: 100%;
-  /* max-width: 900px; */
-}
-
 th {
   text-align: left;
 }
 td {
+  padding: 0 2rem;
   overflow-x: hidden;
 }
 tr:hover {

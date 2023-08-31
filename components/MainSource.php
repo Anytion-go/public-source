@@ -62,20 +62,22 @@ $MainSource = function () use ($title) {
     $title($path);
     return <<<HTML
     <main>
-        <div><b>~{$path}</b></div>
+        <h3><b>~{$path}</b></h3>
+        <hr>
         <div style="overflow-x: scroll;">
         <table>
-        <thead>
+        <!-- <thead>
             <th>file&dir</th>
             <th>size</th>
             <th>create at</th>
             <th>type</th>
-        </thead>
+        </thead> -->
         <tbody>
             {$content}
         </tbody>
         </table>
         </div>
+        <hr>
     </main>
     HTML;
 };
